@@ -1,0 +1,36 @@
+{
+  "name": "shop-api",
+  "version": "0.0.0",
+  "main": "build/index.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "lint": "eslint . --fix",
+    "format": "prettier . --write",
+    "start-dev": "NODE_ENV=development nodemon ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.3.0",
+    "dotenv": "^16.0.1",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.1.1",
+    "nanoid": "^3.3.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.12",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.17.12",
+    "@prisma/client": "^3.14.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2",
+    "prisma": "^3.14.0"
+  }
+}
