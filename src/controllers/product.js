@@ -49,8 +49,28 @@ const findBySku = async (ctx) => {
   ctx.status = product ? 200 : 404;
 };
 
+const findByTag = async (ctx) => {
+  const products = await prisma.products.findMany({
+    include: {
+      tags: true,
+      gallery: true,
+    },
+    where: {
+      tags: {
+        every: {
+          slug: ctx.params.tag,
+        },
+      },
+    },
+  });
+
+  ctx.body = products;
+  ctx.status = products ? 200 : 404;
+};
+
 module.exports = {
   create,
   findBySku,
   findAll,
+  findByTag,
 };

@@ -10,6 +10,7 @@ router.get('/liveness', (ctx) => {
 router.post('/products', productController.create);
 router.get('/products', productController.findAll);
 router.get('/products/:sku', productController.findBySku);
+router.get('/products/tag/:tag', productController.findByTag)
 
 router.get('/tags', tagController.findUniqueTags);
 
