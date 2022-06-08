@@ -10,16 +10,20 @@ const findAll = async (ctx) => {
 };
 
 const create = async (ctx) => {
-  const { gallery, ...productData } = ctx.request.body;
+  const { gallery, tags, ...productData } = ctx.request.body;
   const sku = `PDT-${nanoid(10)}`;
 
   const product = await prisma.products.create({
     include: {
       gallery: true,
+      tags: true,
     },
     data: {
       ...productData,
       sku,
+      tags: {
+        create: tags,
+      },
       gallery: {
         create: gallery,
       },
