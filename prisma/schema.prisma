@@ -35,4 +35,23 @@ model Products {
   createdAt   DateTime         @default(now()) @db.Timestamp(6)
   tags        ProductTag[]
   gallery     ProductGallery[]
+  order_item  OrderItem[]
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  order      Order?   @relation(fields: [orderId], references: [id])
+  orderId    Int?
+  product    Products @relation(fields: [productsId], references: [id])
+  productsId Int
+  quantity   Int      @db.Int @default(1)
+}
+
+model Order {
+  id             Int         @id @default(autoincrement())
+  user_id        String      @db.VarChar(100)
+  total          Float       @db.Float
+  cep            String      @db.VarChar(8)
+  payment_method String      @db.VarChar(40)
+  order_items     OrderItem[]
 }

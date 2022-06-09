@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const productController = require('./controllers/product');
+const orderController = require('./controllers/order');
 const tagController = require('./controllers/tag');
 
 const router = new Router();
@@ -10,7 +11,10 @@ router.get('/liveness', (ctx) => {
 router.post('/products', productController.create);
 router.get('/products', productController.findAll);
 router.get('/products/:sku', productController.findBySku);
-router.get('/products/tag/:tag', productController.findByTag)
+router.get('/products/tag/:tag', productController.findByTag);
+
+router.post('/orders', orderController.create);
+router.get('/orders/:id', orderController.listByUserId);
 
 router.get('/tags', tagController.findUniqueTags);
 
