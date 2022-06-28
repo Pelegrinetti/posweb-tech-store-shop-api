@@ -4,7 +4,12 @@ const { nanoid } = require('nanoid');
 const prisma = new PrismaClient();
 
 const findAll = async (ctx) => {
-  const products = await prisma.products.findMany();
+  const products = await prisma.products.findMany({
+    include: {
+      gallery: true,
+      tags: true,
+    },
+  });
 
   ctx.body = products;
 };
@@ -42,8 +47,6 @@ const findBySku = async (ctx) => {
       sku: ctx.params.sku,
     },
   });
-
-  console.log('Oi', product);
 
   ctx.body = product;
   ctx.status = product ? 200 : 404;
