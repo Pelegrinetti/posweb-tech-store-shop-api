@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint . --fix",
     "format": "prettier . --write",
-    "start-dev": "NODE_ENV=development nodemon ./src/index.js",
-    "start": "NODE_ENV=production node ./src/index.js"
+    "start-dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
   },
   "dependencies": {
     "@koa/cors": "^3.3.0",
