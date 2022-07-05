@@ -26,7 +26,11 @@ const listByUserId = async (ctx) => {
     include: {
       order_items: {
         include: {
-          product: true,
+          product: {
+            include: {
+              gallery: true
+            }
+          },
         },
       },
     },

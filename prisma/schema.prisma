@@ -15,14 +15,14 @@ model ProductGallery {
   url         String   @db.VarChar(255)
   description String?  @db.VarChar(255)
   productId   Int
-  product     Products @relation(fields: [productId], references: [id])
+  product     Products @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductTag {
   id         Int       @id @default(autoincrement())
   name       String    @db.VarChar(40)
-  slug       String    @db.VarChar(40)
-  Products   Products? @relation(fields: [productsId], references: [id])
+  slug       String    @unique @db.VarChar(40)
+  Products   Products? @relation(fields: [productsId], references: [id], onDelete: Cascade)
   productsId Int
 }
 
@@ -40,11 +40,11 @@ model Products {
 
 model OrderItem {
   id         Int      @id @default(autoincrement())
-  order      Order?   @relation(fields: [orderId], references: [id])
+  order      Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId    Int?
-  product    Products @relation(fields: [productsId], references: [id])
+  product    Products @relation(fields: [productsId], references: [id], onDelete: Cascade)
   productsId Int
-  quantity   Int      @db.Int @default(1)
+  quantity   Int      @default(1) @db.Int
 }
 
 model Order {
@@ -53,5 +53,5 @@ model Order {
   total          Float       @db.Float
   cep            String      @db.VarChar(8)
   payment_method String      @db.VarChar(40)
-  order_items     OrderItem[]
+  order_items    OrderItem[]
 }

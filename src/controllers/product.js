@@ -38,6 +38,48 @@ const create = async (ctx) => {
   ctx.body = product;
 };
 
+const update = async (ctx) => {
+  const { gallery, tags, ...productData } = ctx.request.body;
+
+  const product = await prisma.products.update({
+    include: {
+      gallery: true,
+    },
+    where: {
+      sku: ctx.params.sku,
+    },
+    data: {
+      ...productData,
+      tags: {
+        connectOrCreate: tags.map((tag) => ({
+          where: {
+            slug: tag.slug,
+          },
+          create: tag,
+        })),
+      },
+      gallery: {
+        create: gallery,
+      },
+    },
+  });
+
+  ctx.body = product;
+  ctx.status = product ? 200 : 404;
+};
+
+const destroy = async (ctx) => {
+  const { sku } = ctx.params;
+
+  await prisma.products.delete({
+    where: {
+      sku,
+    },
+  });
+
+  ctx.status = 201;
+};
+
 const findBySku = async (ctx) => {
   const product = await prisma.products.findUnique({
     include: {
@@ -76,4 +118,6 @@ module.exports = {
   findBySku,
   findAll,
   findByTag,
+  update,
+  destroy,
 };

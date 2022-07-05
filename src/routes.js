@@ -12,6 +12,8 @@ router.post('/products', productController.create);
 router.get('/products', productController.findAll);
 router.get('/products/:sku', productController.findBySku);
 router.get('/products/tag/:tag', productController.findByTag);
+router.put('/products/:sku', productController.update);
+router.delete('/products/:sku', productController.destroy);
 
 router.post('/orders', orderController.create);
 router.get('/orders/:id', orderController.listByUserId);
